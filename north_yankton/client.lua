@@ -9,7 +9,7 @@ local anim = false
 local menuopend = false
 local inNY = false
 local parkedin = true
-local engineoff = false
+local engineoff = nil
 local alreadyspawned = false
 
 
@@ -335,7 +335,7 @@ function buy(selected)
 		if selcar == 'choose_yes' then
 			parkedin = false
 			ESX.UI.Menu.CloseAll()
-			engineoff = false
+			engineoff = nil
 			ShowMessage("~g~ok, have fun with the car, but dont forget, every half our costs money.")
 			setprice(selected)
 		elseif selcar == 'choose_no' then
@@ -343,7 +343,7 @@ function buy(selected)
 			SetEntityAsMissionEntity(vehicle, true, true)
 			DeleteVehicle(vehicle)
 			parkedin = true
-			engineoff = false
+			engineoff = nil
 			ESX.UI.Menu.CloseAll()
 			ShowMessage("~b~ok, maybe anothertime.")
 		elseif selcar == 'choose_back' then
@@ -351,7 +351,7 @@ function buy(selected)
 			SetEntityAsMissionEntity(vehicle, true, true)
 			DeleteVehicle(vehicle)
 			parkedin = true
-			engineoff = false
+			engineoff = nil
 			OpenGarageMenu()
 		end
 	end)
@@ -394,7 +394,7 @@ Citizen.CreateThread(function()
 		if engineoff == true then
 		local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
 			SetVehicleEngineOn(vehicle, false, false, false)
-		else
+		elseif engineoff == false then
 			local vehicle = GetVehiclePedIsIn(PlayerPedId(), false)
 			SetVehicleEngineOn(vehicle, true, true, true)
 		end
